@@ -1,0 +1,30 @@
+.popup {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.65s ease-in-out, visibility 0s ease 0.65s;
+}
+
+.popup_overlay {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.popup_opened {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.65s ease-in-out;
+}
+
+.popup__container {
+  position: relative;
+  z-index: 2;
+}

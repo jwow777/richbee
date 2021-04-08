@@ -1,0 +1,37 @@
+.details {
+  background: #fff;
+  padding: 60px 150px;
+  color: #323232;
+}
+
+.details__title {
+  max-width: 800px;
+  font-weight: 900;
+  font-size: 36px;
+  line-height: 52px;
+  margin: 0;
+  margin-bottom: 30px;
+}
+
+.details__description {
+  max-width: 800px;
+  font-size: 18px;
+  line-height: 28px;
+  margin: 0;
+  margin-bottom: 60px;
+}
+
+.details__similar {
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 52px;
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+.details__card-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 360px;
+  grid-column-gap: 30px;
+}

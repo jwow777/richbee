@@ -1,0 +1,21 @@
+.rating {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: repeat(2, max-content);
+  grid-column-gap: 8px;
+  width: max-content;
+  height: 30px;
+  background: #fac539;
+  border-radius: 8px;
+  box-sizing: border-box;
+  padding: 0 12px;
+}
+
+.rating__paragraph {
+  font-weight: 900;
+  font-size: 12px;
+  line-height: 15px;
+  color: #000;
+  margin: 0;
+}

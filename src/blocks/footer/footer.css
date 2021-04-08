@@ -1,0 +1,20 @@
+.footer {
+  height: 100px;
+  background: #111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer__title {
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 22px;
+  text-decoration: none;
+  color: #fefefe;
+  transition: all 0.25s ease;
+}
+
+.footer__title:hover {
+  color: #cfcfcf;
+}

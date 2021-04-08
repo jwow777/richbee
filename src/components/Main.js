@@ -1,40 +1,74 @@
-import poster from "../images/poster.jpg";
+import { useState } from "react";
+import SearchForm from "./SearchForm";
+import SearchResult from "./SearchResult";
+import { searchApi, resultApi } from "../api";
 import video from "../video/videoplayback.webm"
 
-export default function Main() {
+export default function Main({ dataFilm }) {
+  const [search, setSearch] = useState("");
+  const [result, setResult] = useState(null);
+  // const [resultOne, setResultOne] = useState(null);
+  // const [resultTwo, setResultTwo] = useState(null);
+  // const [resultThree, setResultThree] = useState(null);
+  // const [resultFour, setResultFour] = useState(null);
+
+  const handleChange = (e) => setSearch(e.target.value);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    searchApi(search)
+      .then((res) => {
+        if (res) {
+          setResult(res.Search.slice(0,4));
+          console.log(result);
+        }
+        // console.log(res);
+        // if (res.Search[0]) {
+        //   resultApi(res.Search[0].imdbID)
+        //   .then((res) => {
+        //     setResultOne(res);
+        //   })
+        //   .catch((error) => console.log(error));
+        // }
+        // if (res.Search[1]) {
+        //   resultApi(res.Search[1].imdbID)
+        //   .then((res) => {
+        //     setResultTwo(res);
+        //   })
+        //   .catch((error) => console.log(error));
+        // }
+        // if (res.Search[2]) {
+        //   resultApi(res.Search[2].imdbID)
+        //   .then((res) => {
+        //     setResultThree(res);
+        //   })
+        //   .catch((error) => console.log(error));
+        // }
+        // if (res.Search[3]) {
+        //   resultApi(res.Search[3].imdbID)
+        //   .then((res) => {
+        //     setResultFour(res);
+        //   })
+        //   .catch((error) => console.log(error));
+        // }
+      })
+      .catch((error) => console.log(error));
+  };
+
   return (
     <>
-      {/* <video autoPlay muted loop id="myVideo">
-        <source src={video} type="video/webm"/>
-      </video> */}
-      <main className="content">
-        <h1 className="content__title">Unlimited movies, TV shows, and more.</h1>
-        <h2 className="content__subtitle">Watch anywhere. Cancel anytime.</h2>
-        <form className="form">
-          <input type="text" placeholder="Type here smth..." className="button input"/>
-          <button type="submit" className="btn content__submit">
-            Search
-          </button>
-        </form>
-        <div className="card">
-          <div className="card__image" style={{backgroundImage: `url(${poster})`}}></div>
-          <div className="card__container">
-            <h3 className="card__title">The Queen's Gambit</h3>
-            <p className="card__block">
-              <span className="card__description">TVSeries</span>
-              <span className="card__description"> | </span>
-              <span className="card__description">Drama</span>
-              <span className="card__description"> | </span>
-              <span className="card__description">2020</span>
-            </p>
-            <p className="card__award">Top Rated TV #148 | Won 2 Golden Globes. Another 12 wins & 19 nominations.</p>
-            <div className="card__rating-container">
-              <p className="card__rating">IMDb</p>
-              <p className="card__rating">8.8</p>
-            </div>
-          </div>
-        </div>
-      </main>
+        <video autoPlay muted loop className="background">
+          <source src={video} type="video/webm"/>
+        </video>
+        <main className="main">
+          <h1 className="main__title">Unlimited movies, TV shows, and more.</h1>
+          <h2 className="main__subtitle">Watch anywhere. Cancel anytime.</h2>
+          <SearchForm handleChange={handleChange} handleSubmit={handleSubmit} />
+          {result && result.map(item => <SearchResult dataFilm={dataFilm} result={item} key={item.id} />)}
+          {/* {resultTwo && (<SearchResult dataFilm={dataFilm} result={resultTwo} key={resultTwo.id} />)}
+          {resultThree && (<SearchResult dataFilm={dataFilm} result={resultThree} key={resultThree.id} />)}
+          {resultFour && (<SearchResult dataFilm={dataFilm} result={resultFour} key={resultFour.id} />)} */}
+        </main>
     </>
-  )
+  );
 }
