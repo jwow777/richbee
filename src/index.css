@@ -1,6 +1,7 @@
 @import url(./vendor/normalize.css);
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&display=swap");
 @import url(./blocks/page/page.css);
+@import url(./blocks/background/background.css);
 @import url(./blocks/header/header.css);
 @import url(./blocks/main/main.css);
 @import url(./blocks/footer/footer.css);

@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { filmImageApi, filmTrailerApi, similarApi } from "../api";
+import { Link, useLocation } from "react-router-dom";
+import { filmImageApi, filmTrailerApi, resultApi, similarApi } from "../api";
 import SimilarCard from "./SimilarCard";
 import TrailerPopup from "./TrailerPopup";
-export default function FilmPage({ data, dataTarget }) {
+
+export default function FilmPage() {
+  const [data, setData] = useState({});
   const [openPopup, setOpenPopup] = useState(false);
   const [bg, setBg] = useState(null);
   const [linkTrailer, setLinkTrailer] = useState(null);
@@ -12,12 +14,42 @@ export default function FilmPage({ data, dataTarget }) {
   const handlePopupClick = () => setOpenPopup(true);
   const closePopup = () => setOpenPopup(false);
 
+  const location = useLocation();
+  const currentID = location.pathname.slice(6);
+
+  const getDataFilm = () => {
+    if (currentID) {
+      resultApi(currentID)
+        .then((res) => setData(res))
+        .catch((error) => console.log(error));
+    }
+  };
+
   useEffect(() => {
-    filmImageApi(data.imdbID).then((res) => setBg(res.items[0].image)).catch((err)=> console.log(err));
-    filmTrailerApi(data.imdbID).then((res) => setLinkTrailer(res.videoId)).catch((err)=> console.log(err));
-    similarApi(data.imdbID).then((res) => setSimilar(res.similars.slice(0, 4))).catch((err)=> console.log(err));
-  }, [data.imdbID])
- 
+    getDataFilm();
+    filmImageApi(currentID)
+      .then((res) =>
+        !res.errorMessage
+          ? setBg(res.items[0].image)
+          : console.log(`Api BG: ${res.errorMessage}`)
+      )
+      .catch((err) => console.log(err));
+    filmTrailerApi(currentID)
+      .then((res) =>
+        !res.errorMessage
+          ? setLinkTrailer(res.videoId)
+          : console.log(`Api Trailer: ${res.errorMessage}`)
+      )
+      .catch((err) => console.log(err));
+    similarApi(currentID)
+      .then((res) =>
+        !res.errorMessage
+          ? setSimilar(res.similars.slice(0, 4))
+          : console.log(`Api Similar: ${res.errorMessage}`)
+      )
+      .catch((err) => console.log(err));
+  }, [currentID]);
+
   return (
     <>
       <header className="header">
@@ -52,14 +84,14 @@ export default function FilmPage({ data, dataTarget }) {
           <p className="details__description">{data.Plot}</p>
           <p className="details__similar">You may also like</p>
           <div className="details__card-container">
-            {similar && similar.map(item => <SimilarCard data={item} dataTarget={dataTarget}/>)}
+            {similar && similar.map(item => <SimilarCard data={item} key={data.imdbID}/>)}
           </div>
         </section>
       </main>
       <footer className="footer">
         <Link to="/" className="footer__title">Richbee Shows</Link>
       </footer>
-      <TrailerPopup isOpen={openPopup} onClose={closePopup} trailer={linkTrailer}/>
+      <TrailerPopup isOpen={openPopup} onClose={closePopup} trailer={linkTrailer} title={data.Title}/>
     </>
   );
 }

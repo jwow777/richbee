@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
-export default function SimilarCard({data, dataTarget}) {
+
+export default function SimilarCard({data}) {
   return (
     <div className="card">
       <div className="card__image" style={{ backgroundImage: `url(${data.image})` }}></div>
       <div className="card__extra">
         <div className="card__content">
           <div className="card__main-content">
-            <Link to={`/film/${data.id}`} className="card__title" onClick={dataTarget(data)}>
+            <Link to={`/film/${data.id}`} className="card__title">
               {data.title}
             </Link>
             <span className="card__option">{data.genres}</span>

@@ -1,16 +1,12 @@
 import { Link } from "react-router-dom";
-export default function SearchResult({ dataFilm, result }) {
+export default function SearchResult({ result }) {
   const {Poster, Title, Type, Genre, Year, Awards, imdbRating, imdbID} = result;
-// console.log(result)
+
   return (
     <div className="result">
       <div className="result__image" style={{ backgroundImage: `url(${Poster})` }}></div>
       <div className="result__container">
-        <Link
-          to={`/film/${imdbID}`}
-          className="result__title"
-          onClick={dataFilm(result)}
-        >
+        <Link to={`/film/${imdbID}`} className="result__title">
           {Title}
         </Link>
         <p className="result__options">

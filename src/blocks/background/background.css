@@ -1,0 +1,25 @@
+.background {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.background::after {
+  content: "";
+  position: fixed;
+  background: linear-gradient(0deg, rgba(17, 17, 17, 0.85), rgba(17, 17, 17, 0.85));
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.background__video {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
